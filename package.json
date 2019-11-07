@@ -1,0 +1,24 @@
+{
+  "name": "stencil-threejs-vr-toolkit",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Attempt at making a truely cross browser VR toolkit with Stencil and ThreeJS",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watch",
+    "generate": "stencil generate"
+  },
+  "dependencies": {
+    "@ionic/core": "^4.9.1",
+    "three": "^0.110.0"
+  },
+  "devDependencies": {
+    "@stencil/core": "^1.5.2"
+  }
+}
