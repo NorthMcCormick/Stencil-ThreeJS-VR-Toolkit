@@ -25,7 +25,7 @@ export class SceneManager {
                 // TODO: Destroy old scene or something
                 this.currentScene = this.scenes[id];
                 this.currentScene.init();
-                this.currentScene.animate();
+                this.currentScene.start();
             }
         }
     }

@@ -4,10 +4,11 @@ import { WEBVR } from '../WebVR';
 export class Scene  {
     public scene: THREE.Scene;
     public renderer: THREE.WebGLRenderer;
-    public light: THREE.HemisphereLight;
 
     public screenWidth;
     public screenHeight;
+
+    private activeCamera: THREE.Camera;
 
     private attachEl: HTMLElement;
 
@@ -21,15 +22,11 @@ export class Scene  {
         this.attachEl = options.attachEl ? options.attachEl : document.body;
     }
 
-    public init() {
-        this._init();
-    }
-
     /**
      * 
      * @param options 
      */
-    _init() {
+    private _init() {
         let _screenWidth = window.innerWidth;
         let _screenHeight = window.innerHeight;
 
@@ -42,13 +39,7 @@ export class Scene  {
         }
 
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0x505050);
-
-
-        this.light = new THREE.HemisphereLight(0xffffff, 0x444444);
-        this.light.position.set(1, 1, 1);
-        this.scene.add(this.light);
-        // 
+        this.scene.background = new THREE.Color(0x505050); 
 
         this.setup();
 
@@ -60,21 +51,31 @@ export class Scene  {
         this.attachEl.appendChild(WEBVR.createButton(this.renderer, {}));
     }
 
-    animate() {
+    private startRendering() {
         this.renderer.setAnimationLoop(() => {
             this.render();
         });
     }
 
-    _render(camera: THREE.Camera) {
-        this.renderer.render(this.scene, camera);
-    }
+    protected render() {
+        this.renderer.render(this.scene, this.activeCamera);
 
-    render() {
-        // Override this in your scene instance
+        // Extend this in your scene instance
     }
 
     protected setup() {
-        // Override this in your scene instance
+        // Extend this in your scene instance
+    }
+
+    public init() {
+        this._init();
+    }
+
+    public start() {
+        this.startRendering();
+    }
+
+    public setActiveCamera(camera: THREE.Camera) {
+        this.activeCamera = camera;
     }
 }
