@@ -1,6 +1,8 @@
 import { Component, h, Listen } from '@stencil/core';
 
-import { Scene } from '../../services/scene';
+import { TestScene } from '../../services/game/scenes/test.scene';
+import { SceneManager } from './../../services/engine/SceneManager';
+import { Scene } from './../../services/engine/Scene';
 
 @Component({
   tag: 'app-profile',
@@ -26,8 +28,19 @@ export class AppProfile {
   }
 
   componentDidLoad() {
-    this.scene = new Scene();
-    this.scene.init({
+
+    // SceneManager.registerScene()
+
+    var scene = new TestScene({
+      attachEl: this.containerEl
+    });
+
+    SceneManager.registerScene('test', scene);
+    SceneManager.setActiveScene('test');
+
+    this.containerEl.appendChild(SceneManager.getRenderElement());
+
+    /*this.scene.init({
       attachEl: this.containerEl
     });
     this.scene.animate();
@@ -36,7 +49,7 @@ export class AppProfile {
 
     if ( 'getVRDisplays' in navigator ) {
 
-    }
+    }*/
   }
 
   enterVR(device, renderer) {

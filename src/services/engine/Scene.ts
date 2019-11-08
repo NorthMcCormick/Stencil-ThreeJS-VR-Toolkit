@@ -1,20 +1,35 @@
 import * as THREE from 'three';
-import { WEBVR } from '../services/WebVR';
+import { WEBVR } from '../WebVR';
 
 export class Scene  {
     public scene: THREE.Scene;
     public renderer: THREE.WebGLRenderer;
-    public camera: THREE.Camera;
     public light: THREE.HemisphereLight;
 
     public screenWidth;
     public screenHeight;
 
-    constructor() {
+    private attachEl: HTMLElement;
 
+    /**
+     * 
+     * @param options {
+      attachEl: this.containerEl
+    }
+     */
+    constructor(options: any) {
+        this.attachEl = options.attachEl ? options.attachEl : document.body;
     }
 
-    init(options: any) {
+    public init() {
+        this._init();
+    }
+
+    /**
+     * 
+     * @param options 
+     */
+    _init() {
         let _screenWidth = window.innerWidth;
         let _screenHeight = window.innerHeight;
 
@@ -29,21 +44,20 @@ export class Scene  {
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color(0x505050);
 
-        this.camera = new THREE.PerspectiveCamera(70, this.screenWidth / this.screenHeight, 0.1, 10);
-
-        this.scene.add(this.camera);
-
 
         this.light = new THREE.HemisphereLight(0xffffff, 0x444444);
         this.light.position.set(1, 1, 1);
         this.scene.add(this.light);
+        // 
+
+        this.setup();
 
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(this.screenWidth, this.screenHeight);
         this.renderer.vr.enabled = true;
 
-        options.attachEl.appendChild(WEBVR.createButton(this.renderer, {}));
+        this.attachEl.appendChild(WEBVR.createButton(this.renderer, {}));
     }
 
     animate() {
@@ -52,7 +66,15 @@ export class Scene  {
         });
     }
 
+    _render(camera: THREE.Camera) {
+        this.renderer.render(this.scene, camera);
+    }
+
     render() {
-        this.renderer.render(this.scene, this.camera);
+        // Override this in your scene instance
+    }
+
+    protected setup() {
+        // Override this in your scene instance
     }
 }
