@@ -14,7 +14,7 @@ export class Scene  {
 
     }
 
-    init() {
+    init(options: any) {
         let _screenWidth = window.innerWidth;
         let _screenHeight = window.innerHeight;
 
@@ -43,7 +43,7 @@ export class Scene  {
         this.renderer.setSize(this.screenWidth, this.screenHeight);
         this.renderer.vr.enabled = true;
 
-        document.body.appendChild(WEBVR.createButton(this.renderer, {}));
+        options.attachEl.appendChild(WEBVR.createButton(this.renderer, {}));
     }
 
     animate() {

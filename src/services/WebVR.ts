@@ -19,7 +19,13 @@ const WEBVR = {
 		if ( options && options.referenceSpaceType ) {
 
 			renderer.vr.setReferenceSpaceType( options.referenceSpaceType );
-		}
+        }
+        
+        var attachEl = document;
+
+        if (options && options.attachEl) {
+            attachEl = attachEl;
+        }
 
 		function showEnterVR( device ) {
 
@@ -205,29 +211,32 @@ const WEBVR = {
 
 			stylizeElement( button );
 
-			window.addEventListener( 'vrdisplayconnect', function ( event: any ) {
+			window.addEventListener( 'vrdisplayconnect', function(event: CustomEvent) {
+                console.log(event);
 
-				showEnterVR( event.display );
+				showEnterVR(event.detail.display);
 
 			}, false );
 
-			window.addEventListener( 'vrdisplaydisconnect', function ( /*event*/ ) {
+			window.addEventListener( 'vrdisplaydisconnect', function() {
 
 				showVRNotFound();
 
 			}, false );
 
-			window.addEventListener( 'vrdisplaypresentchange', function ( event: any ) {
+			window.addEventListener( 'vrdisplaypresentchange', function(event: CustomEvent) {
+                console.log(event);
 
-				button.textContent = event.display.isPresenting ? 'EXIT VR' : 'ENTER VR';
+				button.textContent = event.detail.display.isPresenting ? '' : 'ENTER VR';
+				button.style.visibility = event.detail.display.isPresenting ? 'hidden' : 'visible';
 
-			}, false );
+			}, false);
 
-			window.addEventListener( 'vrdisplayactivate', function ( event: any ) {
+			window.addEventListener( 'vrdisplayactivate', function(event: CustomEvent) {
 
-				event.display.requestPresent( [ { source: renderer.domElement } ] );
+				event.detail.display.requestPresent([{ source: renderer.domElement }]);
 
-			}, false );
+			}, false);
 
 			navigator.getVRDisplays()
 				.then( function ( displays ) {

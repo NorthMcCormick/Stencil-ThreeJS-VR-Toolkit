@@ -13,7 +13,7 @@ export class AppHome {
   requestPermissions() {
     (DeviceMotionEvent as any).requestPermission().then((response) => {
       if (response == 'granted') {
-        
+
       }
     }).catch(console.error)
   }
@@ -28,14 +28,11 @@ export class AppHome {
 
       <ion-content class="ion-padding">
         <p>
-          Welcome to the PWA Toolkit. You can use this starter to build entire
-          apps with web components using Stencil and ionic/core! Check out the
-          README for everything that comes in this starter out of the box and
-          check out our docs on <a href="https://stenciljs.com">stenciljs.com</a> to get started.
+          Welcome to the Stencil & ThreejS VR ToolKit
         </p>
 
-        <ion-button expand="block" onClick={ () => { this.requestPermissions() } }>Request Perms</ion-button>
-        <ion-button href="/profile/ionic" expand="block">Profile page</ion-button>
+        <ion-button expand="block" onClick={ () => { this.requestPermissions() } }>Request Device Motion Permissions</ion-button>
+        <ion-button href="/profile" expand="block">Start Demo</ion-button>
       </ion-content>
     ];
   }
