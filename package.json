@@ -17,7 +17,7 @@
   "dependencies": {
     "@ionic/core": "^4.9.1",
     "cardboard-vr-display": "git+https://github.com/NorthMcCormick/cardboard-vr-display.git#719cc09f23e949f11b42ea9f7b58d202d3f309f5",
-    "three": "^0.110.0",
+    "three": "^0.137.0",
     "webvr-polyfill": "git+https://github.com/NorthMcCormick/webvr-polyfill.git#1cf6efeab7a74f096b60a14ad579d430393276bd"
   },
   "devDependencies": {
